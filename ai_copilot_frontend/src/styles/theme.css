@@ -1,0 +1,16 @@
+:root {
+  --primary: #D97706;
+  --secondary: #F3F4F6;
+  --success: #10B981;
+  --error: #EF4444;
+  --background: #FFFBEB;
+  --surface: #FFFFFF;
+  --text: #374151;
+}
+
+:root.dim {
+  --background: #0b0b0b;
+  --surface: #121212;
+  --text: #e5e7eb;
+  --secondary: #2a2a2a;
+}

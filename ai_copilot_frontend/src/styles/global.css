@@ -1,0 +1,27 @@
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, sans-serif; background: var(--background); color: var(--text); }
+.app { display: flex; flex-direction: column; min-height: 100%; }
+.app-header { padding: 16px 20px; background: linear-gradient(180deg, #FFFBEB 0%, #FCE7B2 100%); border-bottom: 1px solid #f1e3b2; }
+.brand-mark { font-weight: 700; color: var(--primary); font-size: 20px; }
+.brand-sub { font-size: 12px; opacity: 0.7; }
+.app-main { flex: 1; display: flex; justify-content: center; }
+.app-footer { padding: 10px; font-size: 12px; opacity: 0.7; text-align: center; }
+
+.chat-container { width: 100%; max-width: 900px; display: flex; flex-direction: column; height: calc(100vh - 140px); padding: 16px; gap: 12px; }
+.messages { flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 6px; }
+.bubble { border-radius: 14px; padding: 12px 14px; background: var(--surface); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.bubble.user { align-self: flex-end; background: #fff7ed; border-color: #fed7aa; }
+.bubble.assistant { align-self: flex-start; }
+
+.composer { display: flex; gap: 10px; align-items: center; }
+.composer textarea { flex: 1; resize: none; min-height: 64px; max-height: 200px; padding: 12px; border-radius: 12px; border: 1px solid #e5e7eb; background: var(--surface); color: var(--text); }
+.composer .send { padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 12px; cursor: pointer; }
+.composer .send:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.loading-dots span { animation: blink 1.2s infinite; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 20% { opacity: 0.2 } 50% { opacity: 1 } 100% { opacity: 0.2 } }
+
+pre { background: #0b1020; color: #e5e7eb; padding: 12px; border-radius: 12px; overflow: auto; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
