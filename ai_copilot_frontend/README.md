@@ -13,7 +13,7 @@ A modern, elegant React-based chat interface for AI assistance with markdown ren
 
 ## Setup
 
-1. Copy `.env.example` to `.env`:
+1. Copy `.env.example` to `.env` (optional for install/start; the app will default to http://localhost:3001 if not set):
    ```bash
    cp .env.example .env
    ```
@@ -23,14 +23,16 @@ A modern, elegant React-based chat interface for AI assistance with markdown ren
    REACT_APP_API_BASE_URL=http://localhost:3001
    ```
 
-3. Install dependencies:
+3. Install dependencies (no backend is required for this step):
    ```bash
    npm install
    ```
 
-4. Start the development server:
+4. Start the development server (will run even if backend is not up yet):
    ```bash
    npm start
+   # or in CI/preview environments:
+   npm run start:ci
    ```
 
 The app will open at **http://localhost:3000**

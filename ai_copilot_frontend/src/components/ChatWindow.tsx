@@ -7,7 +7,11 @@ import LoadingDots from './LoadingDots';
 export type Role = 'user' | 'assistant' | 'system';
 export interface Message { id: string; role: Role; content: string; createdAt: string; }
 
-// REACT_APP_API_BASE_URL environment variable needs to be set in .env file
+/**
+ * PUBLIC_INTERFACE
+ * API base URL resolution. The app defaults to http://localhost:3001 if REACT_APP_API_BASE_URL is not provided.
+ * Lack of backend availability will not prevent the app from starting; network errors are handled gracefully.
+ */
 const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
 
 /**
