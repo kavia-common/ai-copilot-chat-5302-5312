@@ -1,11 +1,15 @@
 {
-  "name": "react-kavia",
-  "version": "0.1.0",
+  "name": "ai-copilot-frontend",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react-markdown": "^8.0.7",
+    "remark-gfm": "^3.0.1",
+    "rehype-highlight": "^6.0.0",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
