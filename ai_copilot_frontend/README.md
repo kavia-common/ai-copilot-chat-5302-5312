@@ -1,82 +1,220 @@
-# Lightweight React Template for KAVIA
+# AI Copilot Frontend
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Modern, responsive React-based chat interface for the AI Copilot application. Features a clean, elegant design with markdown rendering, syntax highlighting for code blocks, and real-time chat interactions.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- 💬 **Real-time Chat Interface**: Smooth, responsive chat experience
+- 📝 **Markdown Support**: Full markdown rendering with GitHub-flavored markdown
+- 🎨 **Syntax Highlighting**: Beautiful code highlighting for multiple languages
+- 🎯 **Session Management**: Persistent sessions across page reloads
+- ✨ **Elegant Theme**: Champagne-themed UI with warm amber tones
+- 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+- ⚡ **Fast & Lightweight**: Minimal dependencies for quick loading
 
-## Getting Started
+## Prerequisites
 
-In the project directory, you can run:
+- Node.js 14 or higher
+- npm or yarn package manager
+- Running backend server (see backend README)
 
-### `npm start`
+## Setup Instructions
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Install Dependencies
 
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+Using npm:
+```bash
+cd ai_copilot_frontend
+npm install
 ```
 
-### Components
+Using yarn:
+```bash
+cd ai_copilot_frontend
+yarn install
+```
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+### 2. Configure Environment Variables
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+Create a `.env` file in the `ai_copilot_frontend` directory:
 
-## Learn More
+```env
+# Backend API URL
+# For local development, use the local backend URL
+# For production, use your deployed backend URL
+REACT_APP_BACKEND_URL=http://localhost:3001
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Environment Variable Details:**
 
-### Code Splitting
+- **REACT_APP_BACKEND_URL** (required): The base URL of your backend API. This tells the frontend where to send chat requests.
+  - Local development: `http://localhost:3001`
+  - Production: `https://your-backend-domain.com`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Important**: React environment variables must be prefixed with `REACT_APP_` to be accessible in the application.
 
-### Analyzing the Bundle Size
+### 3. Run the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Development Mode (with hot-reload)
 
-### Making a Progressive Web App
+Using npm:
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Using yarn:
+```bash
+yarn start
+```
 
-### Advanced Configuration
+The app will open at [http://localhost:3000](http://localhost:3000)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Production Build
 
-### Deployment
+Build the optimized production bundle:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Using npm:
+```bash
+npm run build
+```
 
-### `npm run build` fails to minify
+Using yarn:
+```bash
+yarn build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The production-ready files will be in the `build/` directory.
+
+### 4. Run Tests
+
+Using npm:
+```bash
+npm test
+```
+
+Using yarn:
+```bash
+yarn test
+```
+
+For CI environments (non-interactive):
+```bash
+CI=true npm test
+```
+
+## Project Structure
+
+```
+ai_copilot_frontend/
+├── src/
+│   ├── components/
+│   │   ├── ChatInterface.js      # Main chat container
+│   │   ├── ChatInterface.css     # Chat interface styles
+│   │   ├── MessageBubble.js      # Individual message component
+│   │   ├── MessageBubble.css     # Message bubble styles
+│   │   ├── InputBox.js           # Chat input component
+│   │   └── InputBox.css          # Input box styles
+│   ├── services/
+│   │   └── api.js                # Backend API integration
+│   ├── utils/
+│   │   └── sessionManager.js     # Session management utilities
+│   ├── App.js                    # Root component
+│   ├── App.css                   # Global styles
+│   ├── index.js                  # Application entry point
+│   └── index.css                 # Base styles
+├── public/                       # Static assets
+├── package.json                  # Dependencies & scripts
+├── .env                          # Environment variables (create this)
+└── README.md                     # This file
+```
+
+## Key Components
+
+### ChatInterface
+The main chat container that manages:
+- Message history
+- Session state
+- API communication
+- User interactions
+
+### MessageBubble
+Displays individual messages with:
+- Markdown rendering (via react-markdown)
+- Code syntax highlighting (via react-syntax-highlighter)
+- Timestamp display
+- Role-based styling (user/assistant/system)
+
+### InputBox
+Chat input with:
+- Auto-resizing textarea
+- Enter to send, Shift+Enter for new line
+- Loading states
+- Disabled state during message processing
+
+## Environment Configuration
+
+### Local Development
+```env
+REACT_APP_BACKEND_URL=http://localhost:3001
+```
+
+### Production
+```env
+REACT_APP_BACKEND_URL=https://your-production-backend.com
+```
+
+### Preview/Staging
+```env
+REACT_APP_BACKEND_URL=https://staging-backend.example.com
+```
+
+## Available Scripts
+
+### `npm start` / `yarn start`
+Runs the app in development mode with hot-reload.
+- Opens browser at [http://localhost:3000](http://localhost:3000)
+- Auto-reloads on code changes
+- Shows lint errors in console
+
+### `npm test` / `yarn test`
+Launches the test runner in interactive watch mode.
+- Re-runs tests on file changes
+- Shows coverage information
+
+### `npm run build` / `yarn build`
+Creates an optimized production build.
+- Minifies code
+- Optimizes assets
+- Generates source maps
+- Output in `build/` directory
+
+### `npm run eject` / `yarn eject`
+**Warning**: This is a one-way operation!
+- Ejects from Create React App
+- Exposes all configuration files
+- Only use if you need full control
+
+## Features & Usage
+
+### Session Management
+- Sessions are automatically created and stored in browser sessionStorage
+- Each session maintains conversation history
+- "New Chat" button creates a fresh session
+- Sessions persist across page reloads (until browser tab is closed)
+
+### Markdown Support
+The chat supports full markdown syntax:
+
+````markdown
+# Headings
+**Bold** and *italic* text
+- Bullet lists
+1. Numbered lists
+`inline code`
+```python
+# Code blocks with syntax highlighting
+def hello():
+    print("Hello, world!")
+```
+> Blockquotes
+[Links](https://example.com)
