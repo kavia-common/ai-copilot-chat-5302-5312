@@ -1,0 +1,116 @@
+/* MessageBubble Component Styles - Champagne Theme */
+
+.message-bubble-container {
+  display: flex;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.assistant-message {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.user-bubble {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.assistant-bubble {
+  background: #ffffff;
+  color: #374151;
+  border: 1px solid #f3f4f6;
+  border-bottom-left-radius: 4px;
+}
+
+.message-role {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.user-bubble .message-role {
+  color: #fffbeb;
+}
+
+.assistant-bubble .message-role {
+  color: #d97706;
+}
+
+.message-content {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.user-bubble .message-content {
+  color: #ffffff;
+}
+
+.assistant-bubble .message-content {
+  color: #374151;
+}
+
+/* Override markdown styles for user messages */
+.user-bubble .message-content code {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fffbeb !important;
+}
+
+.user-bubble .message-content a {
+  color: #fffbeb !important;
+  text-decoration: underline;
+}
+
+.user-bubble .message-content h1,
+.user-bubble .message-content h2,
+.user-bubble .message-content h3 {
+  color: #ffffff !important;
+}
+
+.user-bubble .message-content blockquote {
+  border-left-color: #fffbeb !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.message-timestamp {
+  font-size: 11px;
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .message-bubble {
+    max-width: 85%;
+    padding: 12px;
+  }
+
+  .message-content {
+    font-size: 14px;
+  }
+}
