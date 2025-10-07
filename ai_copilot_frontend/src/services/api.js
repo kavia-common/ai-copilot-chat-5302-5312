@@ -41,8 +41,9 @@ export const sendMessage = async ({ sessionId, message }) => {
     return data;
   } catch (error) {
     console.error('Error sending message:', error);
-    if (error.message.includes('Failed to fetch')) {
-      throw new Error('Cannot connect to backend server. Please verify REACT_APP_BACKEND_URL and backend CORS settings.');
+    console.error('Backend URL:', BACKEND_URL);
+    if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      throw new Error(`Cannot connect to backend at ${BACKEND_URL}. Please verify:\n1. Backend is running\n2. REACT_APP_BACKEND_URL is correct\n3. Backend CORS includes: ${window.location.origin}`);
     }
     throw error;
   }
