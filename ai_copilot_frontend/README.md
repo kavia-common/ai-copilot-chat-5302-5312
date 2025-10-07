@@ -1,82 +1,63 @@
-# Lightweight React Template for KAVIA
+# AI Copilot Frontend (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Elegant chat UI that connects to a backend REST API to provide an AI copilot experience with markdown and code highlighting.
 
 ## Features
+- Chat interface with message bubbles and auto-scroll
+- Preset chips: Write, Summarize, Brainstorm, Code
+- Minimal markdown rendering (bold, italics, inline and fenced code blocks)
+- Basic code syntax highlighting via CSS classes (no extra deps)
+- Champagne theme (light) and Dark theme toggle
+- Stateless sessions by default; ready for session endpoint when available
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Environment Variables
+Set one of the following to configure the backend base URL:
+- REACT_APP_BACKEND_URL (preferred)
+- REACT_APP_API_URL
 
-## Getting Started
+Note: REACT_APP_GEMINI_API_KEY is not used on the client by default. Do not expose sensitive keys in client-side code.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+You can create a .env file in this directory:
+```
+REACT_APP_BACKEND_URL=http://localhost:8000
+# or
+# REACT_APP_API_URL=http://localhost:8000
 ```
 
-### Components
+## Development
+- npm start
+- Open http://localhost:3000
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+## Tests
+- npm test
+The test suite checks that the header title appears and that the input textbox is present.
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+## Backend Contract (assumed)
+POST {baseUrl}/chat
+Body: { message: string, context?: any, preset?: 'write'|'summarize'|'brainstorm'|'code', sessionId?: string }
+Response: { reply: string }
 
-## Learn More
+If a POST /session route is provided by the backend, the frontend exposes createSession() in src/services/api.js for easy integration.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Structure
+- src/components: Header, ThemeToggle, ChatWindow, MessageBubble, ChatInput, TypingIndicator
+- src/hooks/useChatApi.js: message state and API logic
+- src/services/api.js: base URL and chat requests
+- src/utils/markdown.js: minimal markdown renderer
+- src/utils/theme.js: theme definitions and applier
+- src/styles: theme.css and chat.css
 
-### Code Splitting
+## Security
+Avoid putting API keys in client-side code. Use a server-side proxy to interact with providers like Gemini.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Styling
+Champagne theme palette:
+- primary #D97706
+- secondary #F3F4F6
+- success #10B981
+- error #EF4444
+- background #FFFBEB
+- surface #FFFFFF
+- text #374151
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Header/background use a subtle gradient from amber-50 to amber-200.

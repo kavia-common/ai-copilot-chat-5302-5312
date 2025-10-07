@@ -1,47 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
+import './styles/theme.css';
+import './styles/chat.css';
+import { Header } from './components/Header';
+import { ChatWindow } from './components/ChatWindow';
+import { ChatInput } from './components/ChatInput';
+import { TypingIndicator } from './components/TypingIndicator';
+import { useChatApi } from './hooks/useChatApi';
+import { applyThemeToDocument, THEMES } from './utils/theme';
 
 // PUBLIC_INTERFACE
 function App() {
-  const [theme, setTheme] = useState('light');
+  /**
+   * This is the root component for the AI Copilot chat application.
+   * It composes the header, chat window, input area, and typing indicator.
+   */
+  const [theme, setTheme] = useState(THEMES.champagne); // default to Champagne theme
+  const [sessionId] = useState(() => {
+    // Generate ephemeral session id for stateless sessions
+    return `sess_${Math.random().toString(36).slice(2, 10)}`;
+  });
 
-  // Effect to apply theme to document element
+  const {
+    messages,
+    loading,
+    error,
+    sendUserMessage,
+    sendPresetPrompt,
+  } = useChatApi(sessionId);
+
+  const containerRef = useRef(null);
+
+  // Apply theme to document root
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    applyThemeToDocument(theme);
   }, [theme]);
+
+  // Auto-scroll to bottom on new messages
+  const lastMessageId = useMemo(() => (messages.length ? messages[messages.length - 1].id : null), [messages]);
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [lastMessageId, loading]);
 
   // PUBLIC_INTERFACE
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme(prev =>
+      prev.name === THEMES.champagne.name ? THEMES.dark : THEMES.champagne
+    );
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-root">
+      <Header onToggleTheme={toggleTheme} themeName={theme.name} />
+      <main className="chat-layout">
+        <div className="chat-surface" ref={containerRef} aria-live="polite" aria-label="Chat messages">
+          <ChatWindow messages={messages} />
+          {loading && <TypingIndicator text="AI is typing..." />}
+        </div>
+        <div className="input-surface" role="form" aria-label="Send a message">
+          <ChatInput
+            onSend={sendUserMessage}
+            onPreset={(preset) => sendPresetPrompt(preset)}
+            disabled={loading}
+            error={error}
+          />
+        </div>
+      </main>
     </div>
   );
 }
