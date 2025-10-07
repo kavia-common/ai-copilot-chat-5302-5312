@@ -5,7 +5,7 @@
  * error handling and response parsing.
  */
 
-// Get API base URL from environment variable
+// Get API base URL from environment variable (REACT_APP_API_BASE as documented in README)
 const API_BASE_URL = process.env.REACT_APP_API_BASE || 'http://localhost:3001';
 
 /**

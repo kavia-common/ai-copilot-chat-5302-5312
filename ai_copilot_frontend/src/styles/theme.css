@@ -21,32 +21,18 @@
   --gradient-to: #FED7AA;
 }
 
-/* Global styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* App container */
+.app-container {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
   background: var(--background);
   color: var(--text);
 }
 
 code {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-}
-
-.app-container {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
 }
 
 /* Utility classes */
