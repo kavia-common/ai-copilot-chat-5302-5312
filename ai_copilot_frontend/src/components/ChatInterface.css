@@ -25,6 +25,12 @@
   flex: 1;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .chat-title {
   font-size: 28px;
   font-weight: 700;

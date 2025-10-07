@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import MessageBubble from './MessageBubble';
 import InputBox from './InputBox';
+import HealthCheck from './HealthCheck';
 import { sendMessage } from '../services/apiService';
 import './ChatInterface.css';
 
@@ -112,14 +113,17 @@ const ChatInterface = () => {
           <h1 className="chat-title">🤖 AI Copilot</h1>
           <p className="chat-subtitle">Your intelligent assistant powered by Gemini</p>
         </div>
-        <button
-          className="clear-button"
-          onClick={handleClearChat}
-          aria-label="Clear conversation"
-          title="Clear conversation"
-        >
-          🗑️ Clear
-        </button>
+        <div className="header-actions">
+          <HealthCheck minimal={true} />
+          <button
+            className="clear-button"
+            onClick={handleClearChat}
+            aria-label="Clear conversation"
+            title="Clear conversation"
+          >
+            🗑️ Clear
+          </button>
+        </div>
       </div>
 
       {/* Messages Container */}
