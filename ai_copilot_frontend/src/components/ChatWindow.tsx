@@ -62,7 +62,13 @@ export default function ChatWindow() {
     setLoading(true);
     try {
       const res = await axios.post(`${API_BASE}/api/chat`, { session_id: sessionId, message: userMsg.content });
-      const assistant = res.data.message as Message;
+      // Backend returns { response: string, session_id: string }
+      const assistant: Message = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: res.data.response,
+        createdAt: new Date().toISOString()
+      };
       setMessages(prev => [...prev, assistant]);
     } catch (e) {
       console.error('Chat error', e);
