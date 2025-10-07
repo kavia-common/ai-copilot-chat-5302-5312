@@ -17,6 +17,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'
  */
 export const sendMessage = async ({ sessionId, message }) => {
   try {
+    console.log(`Sending message to: ${BACKEND_URL}/api/chat`);
     const response = await fetch(`${BACKEND_URL}/api/chat`, {
       method: 'POST',
       headers: {
@@ -40,6 +41,9 @@ export const sendMessage = async ({ sessionId, message }) => {
     return data;
   } catch (error) {
     console.error('Error sending message:', error);
+    if (error.message.includes('Failed to fetch')) {
+      throw new Error('Cannot connect to backend server. Please verify REACT_APP_BACKEND_URL and backend CORS settings.');
+    }
     throw error;
   }
 };

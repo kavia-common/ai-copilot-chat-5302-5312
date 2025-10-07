@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MessageBubble from './MessageBubble';
 import InputBox from './InputBox';
-import { sendMessage, getSession } from '../services/api';
+import { sendMessage, getSession, checkHealth } from '../services/api';
 import { getSessionId, resetSession } from '../utils/sessionManager';
 import './ChatInterface.css';
 
@@ -31,6 +31,15 @@ const ChatInterface = () => {
       setSessionId(sid);
       
       try {
+        // First, check backend health
+        try {
+          await checkHealth();
+          console.log('✅ Backend connection successful');
+        } catch (healthErr) {
+          console.error('❌ Backend health check failed:', healthErr);
+          setError('Cannot connect to backend. Please check if the backend server is running.');
+        }
+        
         const history = await getSession(sid);
         if (history.messages && history.messages.length > 0) {
           setMessages(history.messages);
